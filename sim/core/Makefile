@@ -630,7 +630,7 @@ certify: verilate
 	echo "" | tee -a "$$SUMMARY"; \
 	echo "TOTAL=$$TOTAL PASS=$$PASS FAIL=$$FAIL" | tee -a "$$SUMMARY"; \
 	echo "Summary saved to: $$SUMMARY"; \
-	true
+	test "$$FAIL" -eq 0
 
 
 ###############################################################################
