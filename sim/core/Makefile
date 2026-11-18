@@ -517,12 +517,13 @@ $(CERT_BIN): CV_CORE_pkg $(TBSRC_VERI) $(TBSRC_PKG)
 	mkdir -p $(CERT_BIN_DIR)
 	cp $(VERI_OBJ_DIR)/Vtb_top $(CERT_BIN)
 
+veri-test: private SHELL := /bin/bash
 veri-test: verilate $(TEST_PROGRAM_PATH)/$(TEST)/$(TEST).hex
 	@echo "$(BANNER)"
 	@echo "* Running with Verilator: logfile in $(VERI_LOG_DIR)/$(TEST).log"
 	@echo "$(BANNER)"
 	mkdir -p $(VERI_LOG_DIR)
-	$(CERT_BIN) $(VERI_FLAGS) \
+	set -o pipefail; $(CERT_BIN) $(VERI_FLAGS) \
 		"+firmware=$(TEST_PROGRAM_PATH)/$(TEST)/$(TEST).hex" \
 		| tee $(VERI_LOG_DIR)/$(TEST).log
 
