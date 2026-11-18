@@ -170,14 +170,13 @@ module tb_top
             $finish;
         end
         if (tests_failed) begin
-            $display("TEST(S) FAILED!");
-            $finish;
+            $fatal(1, "TEST(S) FAILED!");
         end
         if (exit_valid) begin
             if (exit_value == 0)
                 $display("%m @ %0t: EXIT SUCCESS", $time);
             else
-                $display("%m @ %0t: EXIT FAILURE: %d", exit_value, $time);
+                $fatal(1, "%m @ %0t: EXIT FAILURE: %d", $time, exit_value);
             $finish;
         end
     end
